@@ -217,6 +217,21 @@
         }
 
         footer { padding: 80px 0 40px; background: #050505; border-top: 1px solid var(--glass-border); text-align: center; }
+        .slide-caption {
+        position: absolute;
+        bottom: 50px;
+        left: 50px;
+        background: rgba(10, 11, 16, 0.8);
+        padding: 25px;
+        border-left: 4px solid var(--neon-green);
+        backdrop-filter: blur(10px);
+        border-radius: 0 15px 15px 0;
+        max-width: 80%;
+    }
+    .slide-caption h3 { color: var(--neon-green); margin-bottom: 5px; font-size: 1.5rem; }
+    .slide-caption p { color: #fff; font-weight: 500; }
+
+   
         
         /* Responsividade Desktop/Mobile */
       @media (max-width: 768px) {
@@ -228,6 +243,9 @@
                 transform: perspective(300px) rotateX(45deg); /* Angulo menos agressivo */
                 opacity: 0.8;
             }
+            .swiper { height: 300px; }
+            .slide-caption { bottom: 20px; left: 0; padding: 15px; border-radius: 0; }
+            .slide-caption h3 { font-size: 1.1rem; }
 
             .hero h1 { font-size: 2.5rem; }
             .nav-menu, header .btn-portal { display: none; }
@@ -280,7 +298,7 @@
         <a onclick="showPage('cobertura'); toggleMenu();">Cobertura</a>
         <a onclick="showPage('suporte'); toggleMenu();">Suporte</a>
         <a onclick="showPage('contato'); toggleMenu();">Contato</a>
-        <button class="btn-portal" style="display: block; margin-top: 20px;">Área do Cliente</button>
+        <button class="btn-portal" style="display: block; margin-top: 20px;">WhatsApp</button>
     </nav>
 
     <main class="container">
@@ -292,24 +310,41 @@
                 <button class="btn-portal" style="margin-top: 30px; padding: 15px 40px; display: inline-block;" onclick="document.getElementById('nossos-planos').scrollIntoView({behavior: 'smooth'})" data-aos="fade-up">Conhecer Planos</button>
             </section>
             <div class="swiper mySwiper" data-aos="fade-up">
+    <div class="swiper mySwiper" data-aos="fade-up">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1920" alt="Tecnologia">
-            <div style="position: absolute; background: rgba(0,0,0,0.6); padding: 20px; border-radius: 10px; border-left: 5px solid var(--neon-green);">
-                <h3 style="color: #fff;">INFRAESTRUTURA DE ELITE</h3>
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1920" alt="Conexão Global">
+            <div class="slide-caption">
+                <h3>CONEXÃO SEM FRONTEIRAS</h3>
+                <p>A maior rede de fibra óptica da região</p>
             </div>
         </div>
         <div class="swiper-slide">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1920" alt="Fibra">
-            <div style="position: absolute; background: rgba(0,0,0,0.6); padding: 20px; border-radius: 10px; border-left: 5px solid var(--neon-green);">
-                <h3 style="color: #fff;">O FUTURO É AGORA</h3>
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1920" alt="Hardware">
+            <div class="slide-caption">
+                <h3>TECNOLOGIA DE PONTA</h3>
+                <p>Equipamentos Wi-Fi 6 de última geração</p>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&q=80&w=1920" alt="Suporte">
+            <div class="slide-caption">
+                <h3>SUPORTE 24 HORAS</h3>
+                <p>Sempre ativos para você nunca parar</p>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=1920" alt="Gamer">
+            <div class="slide-caption">
+                <h3>EXPERIÊNCIA GAMER</h3>
+                <p>Latência mínima para máxima performance</p>
             </div>
         </div>
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-pagination"></div>
-      </div>
+</div>
 
             <section id="nossos-planos" class="plans-section">
                 <h2 style="text-align: center; font-size: 2.5rem;" data-aos="fade-down">Escolha sua <span>Conexão</span></h2>
@@ -463,22 +498,25 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
             setTimeout(() => { AOS.refresh(); }, 100);
         }
-        const swiper = new Swiper(".mySwiper", {
+       const swiper = new Swiper(".mySwiper", {
         loop: true,
+        grabCursor: true, // Mostra a mãozinha de arrastar
+        spaceBetween: 30, // Espaço entre os slides
+        speed: 800,       // Velocidade da transição (ms)
         autoplay: {
-            delay: 4000,
+            delay: 5000,
             disableOnInteraction: false,
         },
         pagination: {
             el: ".swiper-pagination",
             clickable: true,
+            dynamicBullets: true, // Pontinhos que aumentam/diminuem
         },
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
         },
-        effect: 'fade', // Efeito de transição suave
-        fadeEffect: { crossFade: true }
+        // Efeito de deslize padrão (removi o fade para dar o movimento de "passar")
     });
     </script>
 </body>
