@@ -150,22 +150,31 @@
         
         /* Responsividade Desktop/Mobile */
       @media (max-width: 768px) {
+            /* Deixa as linhas do fundo mais visíveis no celular */
+            .bg-grid {
+                background-image: linear-gradient(rgba(0, 255, 136, 0.15) 1px, transparent 1px),
+                                  linear-gradient(90deg, rgba(0, 255, 136, 0.15) 1px, transparent 1px);
+                background-size: 30px 30px; /* Grade menor para preencher melhor a tela vertical */
+                transform: perspective(300px) rotateX(45deg); /* Angulo menos agressivo */
+                opacity: 0.8;
+            }
+
             .hero h1 { font-size: 2.5rem; }
-            .nav-menu, header .btn-portal { display: none; } /* Esconde o menu original */
-            .hamburger { display: block; } /* Mostra o hamburger */
+            .nav-menu, header .btn-portal { display: none; }
+            .hamburger { display: block; }
             
-            /* Animacao X do Hamburger */
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
             .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
             .mobile-nav {
-                display: flex; /* Garante que ele apareça */
-                right: -100%; /* Escondido por padrão */
+                display: flex;
+                right: -100%;
             }
             .mobile-nav.active {
-                right: 0; /* Aparece quando ativo */
+                right: 0;
             }
+        }
         }
     </style>
 </head>
