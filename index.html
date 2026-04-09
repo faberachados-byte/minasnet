@@ -81,6 +81,37 @@
             cursor: pointer; transition: 0.3s; font-weight: 700; text-transform: uppercase;
         }
         .btn-portal:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 20px var(--neon-green); }
+        /* Seção Sobre Nós */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin: 80px 0;
+        }
+        .about-text h2 { font-size: 2.5rem; margin-bottom: 20px; color: var(--neon-green); }
+        .about-text p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; color: var(--text-silver); }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .feature-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .feature-item:hover { border-color: var(--neon-green); transform: scale(1.05); }
+        .feature-item i { font-size: 2rem; color: var(--neon-green); display: block; margin-bottom: 10px; }
+
+        @media (max-width: 768px) {
+            .about-container { grid-template-columns: 1fr; text-align: center; }
+            .about-features { grid-template-columns: 1fr; }
+        }
 
         /* Menu Hamburger Styles */
         .hamburger {
@@ -292,6 +323,36 @@
                 </div>
             </section>
         </div>
+        <section id="sobre-nos" class="about-container" data-aos="fade-up">
+                <div class="about-text">
+                    <h2>Nossa <span>Missão</span></h2>
+                    <p>A Minas Net nasceu com o propósito de romper as barreiras digitais no Sul de Minas. Somos especialistas em levar ultra velocidade onde outros não chegam, conectando famílias e empresas ao que há de mais moderno em fibra óptica.</p>
+                    <p>Nosso comando central opera 24h para garantir que sua navegação seja constante, estável e livre de interferências.</p>
+                </div>
+                
+                <div class="about-features">
+                    <div class="feature-item" data-aos="zoom-in" data-aos-delay="100">
+                        <span>🚀</span>
+                        <h3>Pioneirismo</h3>
+                        <p>Primeiros a trazer Wi-Fi 6 para a região.</p>
+                    </div>
+                    <div class="feature-item" data-aos="zoom-in" data-aos-delay="200">
+                        <span>🛡️</span>
+                        <h3>Segurança</h3>
+                        <p>Rede monitorada contra instabilidades.</p>
+                    </div>
+                    <div class="feature-item" data-aos="zoom-in" data-aos-delay="300">
+                        <span>🤝</span>
+                        <h3>Proximidade</h3>
+                        <p>Atendimento humano e local em Botelhos.</p>
+                    </div>
+                    <div class="feature-item" data-aos="zoom-in" data-aos-delay="400">
+                        <span>🌍</span>
+                        <h3>Alcance</h3>
+                        <p>A maior cobertura rural da microrregião.</p>
+                    </div>
+                </div>
+            </section>
 
         <div id="cobertura" class="page-section hidden animate__animated animate__fadeIn">
             <h1 style="text-align: center;">Onde o <span>Futuro</span> já chegou</h1>
