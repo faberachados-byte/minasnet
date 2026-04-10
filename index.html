@@ -32,54 +32,36 @@
       --text-silver: #e0e0e0;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      outline: none; 
+    }
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
 
     body {
       background-color: var(--deep-blue);
       color: var(--text-silver);
       font-family: 'Rajdhani', sans-serif;
-      overflow-x: hidden; /* ESSENCIAL: Mata o scroll lateral */
-      width: 100%;
-       position: relative; /* Mantém tudo no eixo */
-      }  
+    }
 
-    html, body {
-  overflow-x: hidden;
-  width: 100%;
-  position: relative;
-}
-     /* Trava absoluta para o corpo do site */
+    /* Travas para Menu Mobile */
     body.menu-open {
       height: 100vh !important;
       overflow: hidden !important;
-      position: fixed !important; /* Essencial para iOS */
+      position: fixed !important;
       width: 100% !important;
     }
-    /* Trava total: Root e Body */
-      html.menu-open, body.menu-open {
+
+    html.menu-open {
       overflow: hidden !important;
       height: 100vh !important;
-      position: fixed; /* Isso trava o safari de rolar o fundo */
-      width: 100%;
-    }
-
-   .hamburger {
-      display: none;
-      cursor: pointer;
-      position: relative;
-      z-index: 10001; /* Um nível acima do mobile-nav */
-      background: transparent;
-      border: none;
-      padding: 5px;
-      width: 45px;
-      height: 45px;
-      /* Remove qualquer delay de carregamento */
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-
-    @media (max-width: 900px) {
-      .hamburger { display: block; }
     }
 
     h1, h2, h3, h4 {
@@ -170,16 +152,17 @@
       box-shadow: 0 0 20px var(--neon-green);
     }
 
-.hamburger {
-  display: none;
-  cursor: pointer;
-  position: relative;
-  z-index: 10020; /* O ponto mais alto do site */
-  background: transparent;
-  border: none;
-  width: 45px;
-  height: 45px;
-}
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 10020;
+      background: transparent;
+      border: none;
+      width: 45px;
+      height: 45px;
+    }
+
     .hamburger .bar {
       display: block;
       width: 30px;
@@ -191,169 +174,95 @@
       box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
     }
 
-    /* Transformação para o "X" */
-    .hamburger.active .bar:nth-child(2) {
+    .hamburger.active .bar:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    .mobile-nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100vh;
+      background: rgba(5, 6, 10, 0.98);
+      backdrop-filter: blur(15px);
+      z-index: 10010;
+      visibility: hidden;
       opacity: 0;
-      transform: translateX(-20px);
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      transition: all 0.4s ease;
     }
-    .hamburger.active .bar:nth-child(1) {
-      transform: translateY(9px) rotate(45deg);
+
+    .mobile-nav.active {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
     }
-    .hamburger.active .bar:nth-child(3) {
-      transform: translateY(-9px) rotate(-45deg);
+
+    .mobile-nav a {
+      font-family: 'Orbitron';
+      font-size: 1.8rem;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      display: block;
+      width: 100%;
     }
 
-  .mobile-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(5, 6, 10, 0.98); 
-  backdrop-filter: blur(15px);
-  z-index: 10010; /* Fica acima do conteúdo, mas ABAIXO do header/botão */
-  
-  visibility: hidden; 
-  opacity: 0;
-  pointer-events: none; 
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  transition: all 0.4s ease;
-}
+    /* Central do Assinante */
+    .login-box {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 450px;
+      margin: 40px auto;
+      backdrop-filter: blur(10px);
+    }
 
-/* Quando ativo, ele assume o controle total */
-.mobile-nav.active {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: auto;
-}
+    .login-box .title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-green);
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
 
-/* Garante que os links dentro do menu sejam clicáveis */
-.mobile-nav a {
-  font-family: 'Orbitron';
-  font-size: 1.8rem;
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
-  padding: 10px 20px; /* Aumenta a área de toque */
-  width: 100%; /* Faz o clique funcionar na linha toda */
-  text-align: center;
-  display: block;
-}
-/* Remove o quadrado esquisito e reseta o estilo no Mobile */
-.mobile-nav .btn-whatsapp {
-  background: transparent !important;
-  border: 1px solid var(--neon-green) !important;
-  color: var(--neon-green) !important;
-  padding: 12px 30px !important;
-  border-radius: 5px !important;
-  font-size: 1.2rem !important;
-  text-transform: uppercase !important;
-  font-weight: 700 !important;
-  width: auto !important; /* Impede que ele ocupe a tela toda se não quiser */
-  box-shadow: 0 0 10px rgba(0, 255, 136, 0.2) !important;
-  -webkit-appearance: none; /* Remove estilo padrão do iPhone/Safari */
-  appearance: none;
-  display: inline-block !important; /* Mantém ele como botão e não linha cheia */
-}
+    .login-box input[type="text"] {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      padding: 15px;
+      color: #fff;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
 
-/* Garante que o efeito de brilho funcione ao tocar */
-.mobile-nav .btn-whatsapp:active {
-  background: var(--neon-green) !important;
-  color: #000 !important;
-  box-shadow: 0 0 20px var(--neon-green) !important;
-}
-   
-/* Estilização da Central do Assinante */
-.login-box {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    padding: 40px;
-    border-radius: 20px;
-    max-width: 450px;
-    margin: 40px auto;
-    backdrop-filter: blur(10px);
-}
+    .submitbutton {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--neon-green);
+      color: var(--neon-green);
+      padding: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: 0.3s;
+    }
 
-.login-box .title {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--neon-green);
-    font-size: 1.5rem;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-}
+    .submitbutton:hover {
+      background: var(--neon-green);
+      color: #000;
+      box-shadow: 0 0 20px var(--neon-green);
+    }
 
-.login-box label {
-    display: block;
-    text-align: left;
-    margin-bottom: 10px;
-    color: var(--text-silver);
-    font-weight: 700;
-}
-
-.login-box input[type="text"] {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    padding: 15px;
-    color: #fff;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.1rem;
-}
-
-.login-box input[type="text"]:focus {
-    border-color: var(--neon-green);
-    box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
-}
-
-.submitbutton {
-    width: 100%;
-    background: transparent;
-    border: 1px solid var(--neon-green);
-    color: var(--neon-green);
-    padding: 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    transition: 0.3s;
-    text-transform: uppercase;
-}
-
-.submitbutton:hover {
-    background: var(--neon-green);
-    color: #000;
-    box-shadow: 0 0 20px var(--neon-green);
-}
-
-/* Botão Secundário na Home */
-.btn-secondary {
-    border: 1px solid var(--text-silver);
-    color: var(--text-silver);
-    padding: 15px 40px;
-    border-radius: 5px;
-    background: transparent;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-top: 15px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
-}
-
-.btn-secondary:hover {
-    border-color: #fff;
-    color: #fff;
-    background: rgba(255,255,255,0.05);
-}
+    /* Seções e Estrutura */
     .page-section { min-height: 100vh; padding-top: 120px; padding-bottom: 60px; position: relative; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .hidden { display: none !important; }
@@ -365,71 +274,22 @@
     .swiper { width: 100%; height: 400px; margin-top: 40px; overflow: hidden; border-radius: 20px; }
     .swiper-slide { width: 450px !important; height: 100%; position: relative; border-radius: 15px; overflow: hidden; border: 1px solid var(--glass-border); background: #000; }
     .swiper-slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-    .swiper-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 25px; z-index: 10; }
-    .swiper-caption h3 { color: var(--neon-green); font-size: 1.2rem; }
 
-    .about-section { padding: 80px 0; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
-    .about-text { flex: 1; min-width: 300px; }
-    .about-text h2 { color: var(--neon-green); margin-bottom: 20px; font-size: 2rem; }
-    .about-image { flex: 1; min-width: 300px; border: 1px solid var(--neon-green); border-radius: 20px; overflow: hidden; box-shadow: 0 0 30px rgba(0, 255, 136, 0.2); }
-    .about-image img { width: 100%; height: auto; display: block; }
-
-    .plans-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 40px; }
-    .plan-card { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 20px; padding: 40px; width: 320px; text-align: center; transition: 0.4s; backdrop-filter: blur(5px); }
-    .plan-card:hover { border-color: var(--neon-green); transform: translateY(-10px); }
-    .price { font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; color: #fff; }
-    .price span { font-size: 1.2rem; opacity: 0.7; }
-    .plan-card ul { list-style: none; text-align: left; margin-bottom: 25px; line-height: 2; }
-    .plan-card li::before { content: '⚡ '; color: var(--neon-green); }
-
-    .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 60px 0; }
-    .stat-card { background: var(--glass-bg); padding: 30px; border-radius: 15px; border: 1px solid var(--glass-border); text-align: center; flex: 1; min-width: 220px; }
-    .stat-card h2 { font-size: 2.8rem; color: var(--neon-green); }
-
-    footer { background: rgba(5, 5, 5, 0.95); border-top: 1px solid var(--glass-border); padding: 80px 0 40px; margin-top: 50px; }
-    .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 50px; }
-    .footer-brand img { height: 50px; margin-bottom: 20px; }
-    .footer-links h4 { color: var(--neon-green); margin-bottom: 20px; font-size: 0.9rem; }
-    .footer-links ul { list-style: none; }
-    .footer-links li { margin-bottom: 12px; }
-    .footer-links a { color: var(--text-silver); text-decoration: none; cursor: pointer; transition: 0.3s; }
-    .footer-links a:hover { color: var(--neon-green); }
-
-    .footer-bottom { border-top: 1px solid var(--glass-border); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .social-icons { display: flex; gap: 15px; }
-    .social-btn { width: 45px; height: 45px; border: 1px solid var(--neon-green); display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--neon-green); text-decoration: none; font-size: 1.2rem; transition: 0.4s; }
-    .social-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 20px var(--neon-green); }
+    /* Efeito Zebra Desktop */
+    @media (min-width: 901px) {
+      .page-section:nth-of-type(even) {
+        background: rgba(255, 255, 255, 0.02);
+        box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+        border-top: 1px solid rgba(0, 255, 136, 0.05);
+        border-bottom: 1px solid rgba(0, 255, 136, 0.05);
+      }
+      .page-section { padding-top: 140px; padding-bottom: 100px; }
+    }
 
     @media (max-width: 900px) {
       .nav-menu, header .btn-whatsapp { display: none; }
       .hamburger { display: block; }
-      .hero h1 { font-size: 2.3rem; }
-      .footer-content { grid-template-columns: 1fr; text-align: center; }
-      .footer-brand { margin: 0 auto; }
-      .footer-bottom { flex-direction: column; }
-          }
-      /* Efeito de separação de seções para Desktop */
-@media (min-width: 901px) {
-  /* Aplica um fundo levemente mais claro e uma borda neon nas seções pares */
-  .page-section:nth-of-type(even) {
-    background: rgba(255, 255, 255, 0.02);
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
-    border-top: 1px solid rgba(0, 255, 136, 0.05);
-    border-bottom: 1px solid rgba(0, 255, 136, 0.05);
-  }
-
-  /* Ajuste de padding para não ficar colado */
-  .page-section {
-    padding-top: 140px;
-    padding-bottom: 100px;
-    transition: background 0.3s ease;
-  }
-}
-
-/* Ajuste fino para os títulos não encostarem no topo */
-.page-section h1 {
-  margin-bottom: 50px;
-}    
+    }
   </style>
 </head>
 <body>
@@ -455,134 +315,56 @@
   </header>
 
   <nav class="mobile-nav" id="mobileNav">
-  <a href="javascript:void(0)" onclick="showPage('home')">Início</a>
-  <a href="javascript:void(0)" onclick="showPage('cobertura')">Cobertura</a>
-  <a href="javascript:void(0)" onclick="showPage('suporte')">Suporte</a>
-  <a href="javascript:void(0)" onclick="showPage('contato')">Contato</a>
-  <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp">WhatsApp</a>
-</nav>
+    <a href="javascript:void(0)" onclick="showPage('home')">Início</a>
+    <a href="javascript:void(0)" onclick="showPage('cobertura')">Cobertura</a>
+    <a href="javascript:void(0)" onclick="showPage('suporte')">Suporte</a>
+    <a href="javascript:void(0)" onclick="showPage('contato')">Contato</a>
+    <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="width:auto; margin-top:20px;">WhatsApp</a>
+  </nav>
 
   <main class="container">
     <div id="home" class="page-section animate__animated animate__fadeIn">
       <section class="hero">
-    <h1 data-aos="zoom-out-up">A VELOCIDADE DA <span>LUZ</span> EM SUAS MÃOS</h1>
-    <p data-aos="fade-up" data-aos-delay="300">Internet rural e Fibra óptica de última geração no Sul de Minas.</p>
-    
-    <button class="btn-whatsapp" style="margin-top: 30px; padding: 15px 40px;" onclick="document.getElementById('nossos-planos').scrollIntoView({behavior: 'smooth'})">Conhecer Planos</button>
-    
-    <button class="btn-secondary" onclick="showPage('suporte')">Central do Assinante</button>
-</section>
+        <h1 data-aos="zoom-out-up">A VELOCIDADE DA <span>LUZ</span> EM SUAS MÃOS</h1>
+        <p data-aos="fade-up" data-aos-delay="300">Internet rural e Fibra óptica de última geração no Sul de Minas.</p>
+        <button class="btn-whatsapp" style="margin-top: 30px; padding: 15px 40px;" onclick="document.getElementById('nossos-planos').scrollIntoView({behavior: 'smooth'})">Conhecer Planos</button>
+        <button class="btn-secondary" style="margin-top:15px; border:1px solid #fff; color:#fff; padding:10px 20px; background:transparent; cursor:pointer;" onclick="showPage('suporte')">Central do Assinante</button>
+      </section>
 
       <div class="swiper mySwiper" data-aos="fade-up">
         <div class="swiper-wrapper">
           <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800"><div class="swiper-caption"><h3>ESTRUTURA DE ELITE</h3></div></div>
           <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800"><div class="swiper-caption"><h3>O FUTURO É AGORA</h3></div></div>
           <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800"><div class="swiper-caption"><h3>PING ZERO GAMER</h3></div></div>
-          <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800"><div class="swiper-caption"><h3>CONEXÃO RURAL</h3></div></div>
         </div>
       </div>
-
-      <section class="about-section" data-aos="fade-up">
-        <div class="about-text">
-          <h2>Nossa Missão <span>Digital</span></h2>
-          <p>Na Minas Net, conectamos o Sul de Minas ao mundo com a velocidade que o futuro exige.</p>
-          <p>Especialistas em fibra óptica de ultra velocidade e pioneiros em soluções rurais.</p>
-        </div>
-        <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800" alt="Tecnologia">
-        </div>
-      </section>
-
-      <section id="nossos-planos" class="plans-section">
-        <h2 style="text-align: center;" data-aos="fade-down">Escolha sua <span>Conexão</span></h2>
-        <div class="plans-grid">
-          <div class="plan-card" data-aos="fade-right">
-            <h3>FIBRA 400MB</h3><div class="price">R$ 89<span>,90</span></div>
-            <ul><li>Wi-Fi 6 Grátis</li><li>Instalação Prioritária</li></ul>
-            <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="width: 100%; text-align: center;">Contratar</a>
-          </div>
-          <div class="plan-card" data-aos="fade-up" style="border-color: var(--neon-green); background: rgba(0, 255, 136, 0.05);">
-            <h3>FIBRA 800MB</h3><div class="price">R$ 119<span>,90</span></div>
-            <ul><li>Ultra Velocidade</li><li>Ideal para Gamers</li></ul>
-            <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="width: 100%; text-align: center; background: var(--neon-green); color: #000;">Contratar Agora</a>
-          </div>
-          <div class="plan-card" data-aos="fade-left">
-            <h3>RURAL 100MB</h3><div class="price">R$ 99<span>,90</span></div>
-            <ul><li>Estabilidade no Campo</li><li>Suporte Especializado</li></ul>
-            <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="width: 100%; text-align: center;">Contratar</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="feedback-google" style="margin-top: 80px; margin-bottom: 40px;">
-          <h2 style="text-align: center; margin-bottom: 40px;" data-aos="fade-up">O QUE DIZEM NOSSOS <span>CLIENTES</span></h2>
-          <div style="background: var(--glass-bg); padding: 20px; border-radius: 20px; border: 1px solid var(--glass-border);">
-              <script src="https://elfsightcdn.com/platform.js" async></script>
-              <div class="elfsight-app-f42264e4-4e29-4908-b9da-05f1189bfa38" data-elfsight-app-lazy></div>
-          </div>
-      </section>
-
-      <section class="stats-grid">
-        <div class="stat-card" data-aos="flip-left"><h2>+50K</h2><p>Clientes Conectados</p></div>
-        <div class="stat-card" data-aos="flip-left" data-aos-delay="200"><h2>100%</h2><p>Fibra Óptica</p></div>
-        <div class="stat-card" data-aos="flip-left" data-aos-delay="400"><h2>24H</h2><p>Suporte Técnico</p></div>
-      </section>
     </div>
 
-   <div id="cobertura" class="page-section hidden animate__animated animate__fadeIn">
-  <h1 style="text-align: center; margin-bottom: 30px;">NOSSA COBERTURA</h1>
-  <div style="background: var(--glass-bg); padding: 20px; border-radius: 20px; border: 1px solid var(--glass-border); overflow: hidden;">
-    <div style="text-align: center; margin-bottom: 20px;">
-      <h2 style="color: var(--neon-green); font-size: 1.5rem;">📍 Atendimento em Botelhos-MG e Região</h2>
-      <p>Leve a ultra velocidade para sua casa ou fazenda.</p>
+    <div id="cobertura" class="page-section hidden animate__animated animate__fadeIn">
+      <h1 style="text-align: center; margin-bottom: 30px;">NOSSA COBERTURA</h1>
+      <div style="background: var(--glass-bg); padding: 20px; border-radius: 20px; border: 1px solid var(--glass-border); overflow: hidden;">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h2 style="color: var(--neon-green); font-size: 1.5rem;">📍 Botelhos-MG e Região</h2>
+        </div>
+        <div style="width: 100%; height: 450px; border-radius: 15px; overflow: hidden; border: 1px solid var(--neon-green);">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3701.385!2d-46.39!3d-21.64!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zQm90ZWxob3MsIE1H!5e0!3m2!1spt-BR!2sbr!4v123456789" width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(150deg);" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
     </div>
-    <div style="width: 100%; height: 450px; border-radius: 15px; overflow: hidden; border: 1px solid var(--neon-green);">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3701.385!2d-46.39!3d-21.64!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zQm90ZWxob3MsIE1H!5e0!3m2!1spt-BR!2sbr!4v123456789" 
-        width="100%" 
-        height="100%" 
-        style="border:0; filter: invert(90%) hue-rotate(150deg) brightness(1.2) contrast(1.2);" 
-        allowfullscreen="" 
-        loading="lazy">
-      </iframe>
-    </div>
-  </div>
-</div>
-
 
     <div id="suporte" class="page-section hidden animate__animated animate__fadeIn">
-        <h1 style="text-align: center; margin-bottom: 20px;">CENTRAL DO CLIENTE</h1>
-        
-        <div class="login-box">
-            <div class="title" style="text-align: center;">Acesse sua conta</div>
-            
-            <form id="form_login" action="https://central.minasnetsat.com.br/login" method="POST">
-                <input type="hidden" name="_token" value="4A6tpkcq5acXM5TUvujEvge2SAzj6EO6iF6WtXJy">
-                
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label>CPF ou CNPJ</label>
-                    <input type="text" 
-                           id="cpfcnpj" 
-                           name="cpf_cnpj" 
-                           inputmode="numeric" 
-                           placeholder="000.000.000-00" 
-                           required>
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" class="submitbutton" value="Entrar na Central" id="continuar">
-                </div>
-            </form>
-        </div>
-
-        <div style="text-align: center; margin-top: 30px;">
-            <p>Precisa de suporte técnico via chat?</p>
-            <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="margin-top: 15px;">Falar com Suporte</a>
-        </div>
+      <h1 style="text-align: center; margin-bottom: 20px;">CENTRAL DO CLIENTE</h1>
+      <div class="login-box">
+        <form id="form_login" action="https://central.minasnetsat.com.br/login" method="POST">
+          <input type="hidden" name="_token" value="4A6tpkcq5acXM5TUvujEvge2SAzj6EO6iF6WtXJy">
+          <div class="form-group">
+            <label style="display:block; margin-bottom:10px;">CPF ou CNPJ</label>
+            <input type="text" id="cpfcnpj" name="cpf_cnpj" inputmode="numeric" placeholder="000.000.000-00" required>
+          </div>
+          <input type="submit" class="submitbutton" value="Entrar na Central">
+        </form>
+      </div>
     </div>
-
-    
-
 
     <div id="contato" class="page-section hidden animate__animated animate__fadeIn">
       <h1 style="text-align: center; margin-bottom: 40px;">CONTATO</h1>
@@ -597,130 +379,73 @@
   </main>
 
   <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="https://raw.githubusercontent.com/faberachados-byte/minasnet/refs/heads/main/assets/img/logo%20minas%20net.png" alt="Minas Net">
-          <p>O futuro da conectividade no Sul de Minas.</p>
-        </div>
-        <div class="footer-links">
-          <h4>SISTEMA</h4>
-          <ul>
-            <li><a onclick="showPage('home')">Início</a></li>
-            <li><a onclick="showPage('cobertura')">Cobertura</a></li>
-            <li><a onclick="showPage('suporte')">Suporte</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h4>CONTATO</h4>
-          <ul><li>📍 Botelhos, MG</li><li>📞 (35) 9 9953-1207</li></ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 Minas Net. Todos os direitos reservados.</p>
-        <div class="social-icons">
-          <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
-          <a href="https://wa.me/5535999531207" class="social-btn"><i class="fab fa-whatsapp"></i></a>
-        </div>
-      </div>
+    <div class="container" style="text-align:center; padding: 40px 0;">
+      <img src="https://raw.githubusercontent.com/faberachados-byte/minasnet/refs/heads/main/assets/img/logo%20minas%20net.png" alt="Minas Net" style="height:50px; margin-bottom:20px;">
+      <p>© 2026 Minas Net. Todos os direitos reservados.</p>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
   <script>
     let swiperInstance;
 
-  function initSwiper() {
-    if (swiperInstance) swiperInstance.destroy(true, true);
-    swiperInstance = new Swiper(".mySwiper", {
-      slidesPerView: "auto",
-      spaceBetween: 20,
-      loop: true,
-      speed: 8000,
-      autoplay: { delay: 0, disableOnInteraction: false },
-      observer: true,
-      observeParents: true
+    function initSwiper() {
+      if (swiperInstance) swiperInstance.destroy(true, true);
+      swiperInstance = new Swiper(".mySwiper", {
+        slidesPerView: "auto",
+        spaceBetween: 20,
+        loop: true,
+        speed: 8000,
+        autoplay: { delay: 0, disableOnInteraction: false },
+        observer: true,
+        observeParents: true
+      });
+    }
+
+    function toggleMenu() {
+      const mobileNav = document.getElementById('mobileNav');
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const body = document.body;
+      const isOpen = mobileNav.classList.toggle('active');
+      hamburgerBtn.classList.toggle('active');
+      isOpen ? body.classList.add('menu-open') : body.classList.remove('menu-open');
+    }
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
+      const target = document.getElementById(pageId);
+      if (target) target.classList.remove('hidden');
+
+      const mobileNav = document.getElementById('mobileNav');
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      mobileNav.classList.remove('active');
+      hamburgerBtn.classList.remove('active');
+      document.body.classList.remove('menu-open');
+
+      if (pageId === 'home') {
+        setTimeout(() => { AOS.refresh(); initSwiper(); }, 100);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      AOS.init({ duration: 1000, once: true });
+      initSwiper();
     });
-  }
 
-  // Função para travar o scroll (Solução definitiva para mobile/iOS)
-  function preventScroll(e) {
-    e.preventDefault();
-  }
+    function enviarWhatsApp(event) {
+      event.preventDefault();
+      const nome = document.getElementById('contato-nome').value;
+      const msg = document.getElementById('contato-mensagem').value;
+      const texto = `Olá, meu nome é ${nome}. ${msg}`;
+      window.open(`https://wa.me/5535999531207?text=${encodeURIComponent(texto)}`, '_blank');
+    }
 
- function toggleMenu() {
-  const mobileNav = document.getElementById('mobileNav');
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const body = document.body;
-
-  const isOpen = mobileNav.classList.toggle('active');
-  hamburgerBtn.classList.toggle('active');
-
-  if (isOpen) {
-    body.classList.add('menu-open');
-    // Força o foco no menu para o mobile entender a interação
-    mobileNav.focus();
-  } else {
-    body.classList.remove('menu-open');
-    body.style.overflow = 'auto';
-  }
-}
-
-function showPage(pageId) {
-  // 1. Esconde as seções
-  document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
-  
-  // 2. Mostra a página correta
-  const target = document.getElementById(pageId);
-  if (target) {
-    target.classList.remove('hidden');
-  }
-
-  // 3. FECHA O MENU AUTOMATICAMENTE (Mobile)
-  const mobileNav = document.getElementById('mobileNav');
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const body = document.body;
-
-  if (mobileNav) mobileNav.classList.remove('active');
-  if (hamburgerBtn) hamburgerBtn.classList.remove('active');
-  
-  body.classList.remove('menu-open');
-  body.style.overflow = 'auto'; 
-  body.style.position = 'static'; // Libera a trava do iOS
-
-  // 4. Reset de componentes específicos
-  if (pageId === 'home') {
-    setTimeout(() => { 
-      AOS.refresh(); 
-      if (typeof initSwiper === 'function') initSwiper(); 
-    }, 100);
-  }
-
-  // 5. Scroll ao topo suave
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-  // Inicialização
-  document.addEventListener('DOMContentLoaded', () => {
-    AOS.init({ duration: 1000, once: true });
-    initSwiper();
-  });
-
-  // Função do Formulário
-  function enviarWhatsApp(event) {
-    event.preventDefault();
-    const nome = document.getElementById('contato-nome').value;
-    const msg = document.getElementById('contato-mensagem').value;
-    const texto = `Olá, meu nome é ${nome}. ${msg}`;
-    window.open(`https://wa.me/5535999531207?text=${encodeURIComponent(texto)}`, '_blank');
-  }
-  // Script simples para formatar CPF enquanto digita
-document.getElementById('cpfcnpj').addEventListener('input', function (e) {
-    let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
-    e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' + x[3] : '') + (x[4] ? '-' + x[4] : '');
-});
+    document.getElementById('cpfcnpj').addEventListener('input', function (e) {
+      let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
+      e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+    });
   </script>
 </body>
 </html>
