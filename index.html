@@ -38,9 +38,10 @@
       background-color: var(--deep-blue);
       color: var(--text-silver);
       font-family: 'Rajdhani', sans-serif;
-      overflow-x: hidden;
+      overflow-x: hidden; /* ESSENCIAL: Mata o scroll lateral */
       width: 100%;
-    }
+       position: relative; /* Mantém tudo no eixo */
+      }  
      /* Trava absoluta para o corpo do site */
     body.menu-open {
       height: 100vh !important;
@@ -200,28 +201,27 @@
     }
 
     .mobile-nav {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 100%;
-      height: 100vh;
-      background: rgba(5, 6, 10, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px); /* Suporte para Safari/iOS */
-      z-index: 9998;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 35px;
-      transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-      visibility: hidden; /* Evita cliques acidentais enquanto fechado */
-    }
+  position: fixed;
+  top: 0;
+  right: 0; /* Fica no lugar certo */
+  width: 100%;
+  height: 100vh;
+  background: #05060a;
+  z-index: 10000;
+  display: none; /* ELE NÃO EXISTE NO CARREGAMENTO */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-    .mobile-nav.active {
-      right: 0;
-      visibility: visible;
-    }
+    /* Quando estiver ativo, ele aparece suavemente */
+.mobile-nav.active {
+  display: flex; /* PASSA A EXISTIR */
+  opacity: 1;
+}
     .mobile-nav a { font-family: 'Orbitron'; font-size: 1.8rem; color: #fff; text-decoration: none; cursor: pointer; }
 
    
@@ -466,27 +466,30 @@
     e.preventDefault();
   }
 
-  function toggleMenu() {
-    const mobileNav = document.getElementById('mobileNav');
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const body = document.body;
-    const html = document.documentElement;
+ function toggleMenu() {
+  const mobileNav = document.getElementById('mobileNav');
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const body = document.body;
 
-    const isOpen = mobileNav.classList.toggle('active');
-    hamburgerBtn.classList.toggle('active');
+  // Verifica se está abrindo ou fechando
+  const isOpening = !mobileNav.classList.contains('active');
 
-    if (isOpen) {
+  if (isOpening) {
+    mobileNav.style.display = 'flex'; // Primeiro faz existir
+    setTimeout(() => {
+      mobileNav.classList.add('active');
       body.classList.add('menu-open');
-      html.classList.add('menu-open');
-      // Adiciona ouvinte para impedir o scroll via touch
-      window.addEventListener('touchmove', preventScroll, { passive: false });
-    } else {
-      body.classList.remove('menu-open');
-      html.classList.remove('menu-open');
-      // Remove o impedimento de scroll
-      window.removeEventListener('touchmove', preventScroll);
-    }
+    }, 10); // Delay mínimo para a transição de opacidade funcionar
+  } else {
+    mobileNav.classList.remove('active');
+    body.classList.remove('menu-open');
+    setTimeout(() => {
+      mobileNav.style.display = 'none'; // Depois que a animação acaba, some de vez
+    }, 300);
   }
+  
+  hamburgerBtn.classList.toggle('active');
+}
 
   function showPage(pageId) {
     // 1. Esconde as seções
