@@ -111,7 +111,7 @@
       background: rgba(10, 11, 16, 0.9);
       backdrop-filter: blur(15px);
       border-bottom: 1px solid var(--glass-border);
-      z-index: 9999;
+      z-index: 10015;
       display: flex;
       align-items: center;
     }
@@ -171,18 +171,15 @@
     }
 
 .hamburger {
-      display: none;
-      cursor: pointer;
-      position: relative;
-      z-index: 10000; /* Acima de tudo */
-      background: none;
-      border: none;
-      padding: 5px;
-      width: 45px;
-      height: 45px;
-      transition: 0.3s;
-    }
-
+  display: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 10020; /* O ponto mais alto do site */
+  background: transparent;
+  border: none;
+  width: 45px;
+  height: 45px;
+}
     .hamburger .bar {
       display: block;
       width: 30px;
@@ -209,32 +206,44 @@
   .mobile-nav {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
-  background: #05060a;
-  z-index: 10000;
+  background: rgba(5, 6, 10, 0.98); 
+  backdrop-filter: blur(15px);
+  z-index: 10010; /* Fica acima do conteúdo, mas ABAIXO do header/botão */
   
-  /* MUDANÇA AQUI: Em vez de display:none, use estes 3 */
   visibility: hidden; 
   opacity: 0;
   pointer-events: none; 
   
-  display: flex; /* Ele SEMPRE é flex, o que muda é a visibilidade */
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: all 0.4s ease;
 }
 
+/* Quando ativo, ele assume o controle total */
 .mobile-nav.active {
   visibility: visible;
   opacity: 1;
-  pointer-events: auto; /* Volta a aceitar cliques */
+  pointer-events: auto;
 }
-    .mobile-nav a { font-family: 'Orbitron'; font-size: 1.8rem; color: #fff; text-decoration: none; cursor: pointer; }
 
+/* Garante que os links dentro do menu sejam clicáveis */
+.mobile-nav a {
+  font-family: 'Orbitron';
+  font-size: 1.8rem;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 10px 20px; /* Aumenta a área de toque */
+  width: 100%; /* Faz o clique funcionar na linha toda */
+  text-align: center;
+  display: block;
+}
    
 
     .page-section { min-height: 100vh; padding-top: 120px; padding-bottom: 60px; position: relative; }
@@ -316,12 +325,12 @@
   </header>
 
   <nav class="mobile-nav" id="mobileNav">
-    <a onclick="showPage('home'); toggleMenu();">Início</a>
-    <a onclick="showPage('cobertura'); toggleMenu();">Cobertura</a>
-    <a onclick="showPage('suporte'); toggleMenu();">Suporte</a>
-    <a onclick="showPage('contato'); toggleMenu();">Contato</a>
-    <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="margin-top: 20px;">WhatsApp</a>
-  </nav>
+  <a href="javascript:void(0)" onclick="showPage('home')">Início</a>
+  <a href="javascript:void(0)" onclick="showPage('cobertura')">Cobertura</a>
+  <a href="javascript:void(0)" onclick="showPage('suporte')">Suporte</a>
+  <a href="javascript:void(0)" onclick="showPage('contato')">Contato</a>
+  <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp">WhatsApp</a>
+</nav>
 
   <main class="container">
     <div id="home" class="page-section animate__animated animate__fadeIn">
@@ -487,48 +496,43 @@
 
   if (isOpen) {
     body.classList.add('menu-open');
+    // Força o foco no menu para o mobile entender a interação
+    mobileNav.focus();
   } else {
     body.classList.remove('menu-open');
+    body.style.overflow = 'auto';
   }
 }
 
   function showPage(pageId) {
-    // 1. Esconde as seções
-    document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
-    
-    // 2. Mostra a página correta
-    const target = document.getElementById(pageId);
-    if (target) {
-      target.classList.remove('hidden');
-      if (pageId === 'home') {
-        setTimeout(() => { 
-          AOS.refresh(); 
-          initSwiper(); 
-        }, 50);
-      }
-    }
-
-    // 3. Reseta o Menu e o Scroll (Garante que tudo volte ao normal)
-    const mobileNav = document.getElementById('mobileNav');
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    
-    mobileNav.classList.remove('active');
-    hamburgerBtn.classList.remove('active');
-    document.body.classList.remove('menu-open');
-    document.documentElement.classList.remove('menu-open');
-    window.removeEventListener('touchmove', preventScroll);
-
-    // 4. Marca o link ativo no menu desktop
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('onclick')?.includes(`'${pageId}'`)) {
-        link.classList.add('active');
-      }
-    });
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  // 1. Esconde as seções
+  document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
+  
+  // 2. Mostra a página correta
+  const target = document.getElementById(pageId);
+  if (target) {
+    target.classList.remove('hidden');
   }
 
+  // 3. FECHA O MENU AUTOMATICAMENTE
+  const mobileNav = document.getElementById('mobileNav');
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const body = document.body;
+
+  mobileNav.classList.remove('active');
+  hamburgerBtn.classList.remove('active');
+  body.classList.remove('menu-open');
+  body.style.overflow = 'auto'; // Garante que o scroll volte
+
+  // 4. Reset de animações e scroll ao topo
+  if (pageId === 'home') {
+    setTimeout(() => { 
+      AOS.refresh(); 
+      initSwiper(); 
+    }, 100);
+  }
+  window.scrollTo(0, 0);
+}
   // Inicialização
   document.addEventListener('DOMContentLoaded', () => {
     AOS.init({ duration: 1000, once: true });
