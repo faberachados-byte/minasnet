@@ -515,32 +515,44 @@
           <p>Leve a ultra velocidade para sua casa ou fazenda.</p>
         </div>
         <div style="width: 100%; height: 450px; border-radius: 15px; overflow: hidden; border: 1px solid var(--neon-green);">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59183.1843236054!2d-46.4357591!3d-21.9961207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cb8bc2cfaf032b%3A0x2a014a69da227c77!2sBotelhos%20-%20MG%2C%2037720-000!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(150deg) brightness(1.2) contrast(1.2);" allowfullscreen="" loading="lazy"></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14785.494711319767!2d-46.3985614!3d-21.6395914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94b918731362e649%3A0x6a9408018658095d!2sBotelhos%2C%20MG!5e0!3m2!1spt-BR!2sbr!4v1710000000000" width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(150deg) brightness(1.2) contrast(1.2);" allowfullscreen="" loading="lazy"></iframe>
         </div>
       </div>
     </div>
 
-    <form id="form_login" action="https://central.minasnetsat.com.br/login" method="POST" style="margin-bottom: 0;">
-    
-    <input type="hidden" name="_token" value="4A6tpkcq5acXM5TUvujEvge2SAzj6EO6iF6WtXJy" autocomplete="off">
-    
-    <div id="passo1" class="passos">
-        <div class="form-group">
-            <label>CPF ou CNPJ</label>
-            <input type="text" 
-                   id="cpfcnpj" 
-                   name="cpf_cnpj" 
-                   inputmode="numeric" 
-                   placeholder="000.000.000-00" 
-                   autocomplete="off" 
-                   required>
+    <div id="suporte" class="page-section hidden animate__animated animate__fadeIn">
+        <h1 style="text-align: center; margin-bottom: 20px;">CENTRAL DO CLIENTE</h1>
+        
+        <div class="login-box">
+            <div class="title" style="text-align: center;">Acesse sua conta</div>
+            
+            <form id="form_login" action="https://central.minasnetsat.com.br/login" method="POST">
+                <input type="hidden" name="_token" value="4A6tpkcq5acXM5TUvujEvge2SAzj6EO6iF6WtXJy">
+                
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label>CPF ou CNPJ</label>
+                    <input type="text" 
+                           id="cpfcnpj" 
+                           name="cpf_cnpj" 
+                           inputmode="numeric" 
+                           placeholder="000.000.000-00" 
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="submitbutton" value="Entrar na Central" id="continuar">
+                </div>
+            </form>
         </div>
 
-        <div class="form-group">
-            <input type="submit" class="submitbutton" value="Entrar" id="continuar">
+        <div style="text-align: center; margin-top: 30px;">
+            <p>Precisa de suporte técnico via chat?</p>
+            <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="margin-top: 15px;">Falar com Suporte</a>
         </div>
     </div>
-</form>
+
+    <div id="contato" class="page-section hidden animate__animated animate__fadeIn">
+
 
     <div id="contato" class="page-section hidden animate__animated animate__fadeIn">
       <h1 style="text-align: center; margin-bottom: 40px;">CONTATO</h1>
