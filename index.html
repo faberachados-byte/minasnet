@@ -520,36 +520,27 @@
       </div>
     </div>
 
-    <div id="suporte" class="page-section hidden animate__animated animate__fadeIn">
-    <h1 style="text-align: center;">SUPORTE E CENTRAL</h1>
+    <form id="form_login" action="https://central.minasnetsat.com.br/login" method="POST" style="margin-bottom: 0;">
     
-    <div class="container" style="text-align: center;">
-        <div class="login-box">
-            <div class="title">Central do assinante</div>
-            
-            <form id="form_login" action="SUA_URL_DE_LOGIN_AQUI" method="POST">
-                <input type="hidden" name="_token" value="4A6tpkcq5acXM5TUvujEvge2SAzj6EO6iF6WtXJy">
-                
-                <div class="form-group">
-                    <label>CPF ou CNPJ</label>
-                    <input type="text" id="cpfcnpj" name="cpf_cnpj" placeholder="000.000.000-00" required>
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" class="submitbutton" value="Entrar" id="continuar">
-                </div>
-            </form>
+    <input type="hidden" name="_token" value="4A6tpkcq5acXM5TUvujEvge2SAzj6EO6iF6WtXJy" autocomplete="off">
+    
+    <div id="passo1" class="passos">
+        <div class="form-group">
+            <label>CPF ou CNPJ</label>
+            <input type="text" 
+                   id="cpfcnpj" 
+                   name="cpf_cnpj" 
+                   inputmode="numeric" 
+                   placeholder="000.000.000-00" 
+                   autocomplete="off" 
+                   required>
         </div>
 
-        <div class="stats-grid" style="margin-top: 30px;">
-            <div class="stat-card">
-                <h3>WhatsApp Suporte</h3>
-                <p>(35) 9 9953-1207</p>
-                <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="margin-top: 15px;">Falar com Técnico</a>
-            </div>
+        <div class="form-group">
+            <input type="submit" class="submitbutton" value="Entrar" id="continuar">
         </div>
     </div>
-</div>
+</form>
 
     <div id="contato" class="page-section hidden animate__animated animate__fadeIn">
       <h1 style="text-align: center; margin-bottom: 40px;">CONTATO</h1>
@@ -683,6 +674,11 @@ function showPage(pageId) {
     const texto = `Olá, meu nome é ${nome}. ${msg}`;
     window.open(`https://wa.me/5535999531207?text=${encodeURIComponent(texto)}`, '_blank');
   }
+  // Script simples para formatar CPF enquanto digita
+document.getElementById('cpfcnpj').addEventListener('input', function (e) {
+    let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
+    e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+});
   </script>
 </body>
 </html>
