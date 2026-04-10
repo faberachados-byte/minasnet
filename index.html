@@ -979,61 +979,66 @@
           }
       }
 
-      /* Animação suave para chamar atenção (opcional) */
-      @keyframes pulse-whatsapp {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-          100% { transform: scale(1); }
-      }
+      /* ==========================================================================
+   CÓDIGO DESATIVADO TEMPORARIAMENTE
+   ==========================================================================
 
-      .whatsapp-float {
-          animation: pulse-whatsapp 2s infinite;
-      }
-      /* Definição da Animação 'passeioDaLogo' */
-      @keyframes passeioDaLogo {
-    0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-    }
-    5% {
-        transform: translate(0, 10px) scale(1);
-        opacity: 0.9;
-    }
-    15% {
-        /* Usamos vw/vh mas mantemos a escala estável */
-        transform: translate(calc(100vw - 180px), 20px) scale(1);
-    }
-    40% {
-        transform: translate(calc(100vw - 180px), calc(100vh - 120px)) scale(1);
-    }
-    65% {
-        transform: translate(20px, calc(100vh - 120px)) scale(1);
-    }
-    90% {
-        transform: translate(20px, 20px) scale(1);
-    }
-    100% {
-        transform: translate(0, 0) scale(1);
-    }
-  }
+   --- Animação suave para chamar atenção (WhatsApp) ---
+   @keyframes pulse-whatsapp {
+       0% { transform: scale(1); }
+       50% { transform: scale(1.05); }
+       100% { transform: scale(1); }
+   }
 
-      /* Classe que aplica a animação à logo */
-     .logo-animada {
-    animation: passeioDaLogo 10s ease-in-out forwards;
-    position: fixed !important;
-    top: 20px; 
-    left: 20px;
-    z-index: 10000;
-    pointer-events: none;
-    
-    /* SOLUÇÃO PARA NÃO ACHATAR */
-    width: 150px !important;  /* Largura fixa igual à original */
-    height: auto !important;   /* Altura automática para manter proporção */
-    object-fit: contain !important; /* Garante que a imagem não distorça no container */
-    
-    /* Filtro opcional para dar um brilho enquanto ela anda */
-    filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.5));
+   .whatsapp-float {
+       animation: pulse-whatsapp 2s infinite;
+   }
+
+   --- Definição da Animação 'passeioDaLogo' ---
+   @keyframes passeioDaLogo {
+       0% {
+           transform: translate(0, 0) scale(1);
+           opacity: 1;
        }
+       5% {
+           transform: translate(0, 10px) scale(1);
+           opacity: 0.9;
+       }
+       15% {
+           transform: translate(calc(100vw - 180px), 20px) scale(1);
+       }
+       40% {
+           transform: translate(calc(100vw - 180px), calc(100vh - 120px)) scale(1);
+       }
+       65% {
+           transform: translate(20px, calc(100vh - 120px)) scale(1);
+       }
+       90% {
+           transform: translate(20px, 20px) scale(1);
+       }
+       100% {
+           transform: translate(0, 0) scale(1);
+       }
+   }
+
+   --- Classe que aplica a animação à logo ---
+   .logo-animada {
+       animation: passeioDaLogo 10s ease-in-out forwards;
+       position: fixed !important;
+       top: 20px; 
+       left: 20px;
+       z-index: 10000;
+       pointer-events: none;
+       
+       /* Configurações para manter a proporção
+       width: 150px !important;
+       height: auto !important;
+       object-fit: contain !important;
+       
+       /* Filtro de brilho 
+       filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.5));
+   }
+*/
     </style>
   </head>
   <body>
@@ -1117,7 +1122,7 @@
             </div>
             <div class="swiper-slide">
               <img
-                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800"
+                src="https://raw.githubusercontent.com/faberachados-byte/minasnetsat/refs/heads/main/assets/img/slide-future.jpg"
               />
               <div class="swiper-caption"><h3>O FUTURO É AGORA</h3></div>
             </div>
@@ -1129,7 +1134,7 @@
             </div>
             <div class="swiper-slide">
               <img
-                src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800"
+                src="https://raw.githubusercontent.com/faberachados-byte/minasnetsat/refs/heads/main/assets/img/slide-rural.jpg"
               />
               <div class="swiper-caption"><h3>CONEXÃO RURAL</h3></div>
             </div>
@@ -1141,7 +1146,7 @@
             </div>
             <div class="swiper-slide">
               <img
-                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800"
+                src="https://raw.githubusercontent.com/faberachados-byte/minasnetsat/refs/heads/main/assets/img/slide-future.jpg"
               />
               <div class="swiper-caption"><h3>O FUTURO É AGORA</h3></div>
             </div>
@@ -1153,7 +1158,7 @@
             </div>
             <div class="swiper-slide">
               <img
-                src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800"
+                src="https://raw.githubusercontent.com/faberachados-byte/minasnetsat/refs/heads/main/assets/img/slide-rural.jpg"
               />
               <div class="swiper-caption"><h3>CONEXÃO RURAL</h3></div>
             </div>
@@ -2053,7 +2058,6 @@
    
 });
 
-
     </script>
     <a
       href="https://wa.me/5535999531207"
@@ -2063,7 +2067,8 @@
     >
       <i class="fab fa-whatsapp"></i>
     </a>
-    <script>
+   <script>
+/*
 function iniciarPasseioLogo() {
     // Seleciona a imagem da logo - o seletor abaixo busca a logo da Minas Net
     const logoImg = document.querySelector('.logo img');
@@ -2092,6 +2097,7 @@ function iniciarPasseioLogo() {
 window.addEventListener("load", () => {
     setTimeout(iniciarPasseioLogo, 3000); // Começa 3 segundos após carregar tudo
 });
+*/
 </script>
   </body>
 </html>
