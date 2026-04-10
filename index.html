@@ -464,6 +464,10 @@
                     padding-bottom: 100px;
                     position: relative;
                   }
+                  /* Ajuste fino para os títulos não encostarem no topo */
+                  .page-section h1 {
+                    margin-bottom: 50px;
+                  }
                   .container {
                     max-width: 1300px; /* Aumentei um pouco a largura total */
                     margin: 0 auto;
@@ -868,10 +872,7 @@
               }
             }
 
-                  /* Ajuste fino para os títulos não encostarem no topo */
-                  .page-section h1 {
-                    margin-bottom: 50px;
-                  }
+                  
           /* Estilo para todos os campos de texto e senha */
       .login-box input[type="text"],
       .login-box input[type="password"] {
@@ -897,7 +898,41 @@
       .login-box a:hover {
           text-decoration: underline;
           opacity: 0.8;
+
       }
+      /* --- REGRAS APENAS PARA CELULAR (Mobile) --- */
+@media (max-width: 768px) {
+    .page-section {
+        width: 100%;
+        /* min-height garante que a seção ocupe a tela toda, 
+           mas o conteúdo possa "empurrar" para baixo se for maior */
+        min-height: 100vh; 
+        padding-top: 100px; /* Aumentado para não cobrir o título no mobile */
+        padding-bottom: 80px;
+        overflow-y: visible !important; 
+        display: block !important; 
+        position: relative;
+    }
+
+    /* Força o scroll no body quando o menu NÃO está aberto */
+    body {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+
+    /* Trava o scroll APENAS quando o menu hamburguer estiver aberto */
+    body.menu-open {
+        overflow: hidden !important;
+        position: fixed; /* Evita que a página "pule" no iOS */
+        width: 100%;
+    }
+}
+
+/* --- REGRAS GERAIS (Funcionam em todos os dispositivos) --- */
+.page-section.hidden {
+    display: none !important;
+}
     </style>
   </head>
   <body>
@@ -1670,54 +1705,57 @@
         // 2. Lógica do Formulário de Login (Versão Anti-Refresh)
         // Lógica de Login Robusta
         $(document).on("submit", "#form_login_novo", function (e) {
-    e.preventDefault();
-    
-    var form = $(this);
-    var btn = form.find('.submitbutton');
-    // A URL deve ser exatamente a da central deles
-    var url = "https://minastelsat.atlaz.com.br/central/auth/action";
+          e.preventDefault();
 
-    btn.val("Conectando...").prop('disabled', true);
+          var form = $(this);
+          var btn = form.find(".submitbutton");
+          // A URL deve ser exatamente a da central deles
+          var url = "https://minastelsat.atlaz.com.br/central/auth/action";
 
-    $.ajax({
-        method: "POST",
-        url: url,
-        data: form.serialize(),
-        dataType: "json",
-        timeout: 20000,
-        cache: false,
-        success: function(result) {
-            // Lógica idêntica à da Atlaz
-            if(result.success == "true" || result.success === true) {
+          btn.val("Conectando...").prop("disabled", true);
+
+          $.ajax({
+            method: "POST",
+            url: url,
+            data: form.serialize(),
+            dataType: "json",
+            timeout: 20000,
+            cache: false,
+            success: function (result) {
+              // Lógica idêntica à da Atlaz
+              if (result.success == "true" || result.success === true) {
                 // Se deu certo, vai para o financeiro
                 window.location = result.redirectTo;
-            } else {
+              } else {
                 // Se deu erro, pega a mensagem que a Atlaz enviou
                 var msgErro = "Credenciais inválidas.";
-                
-                if(result.swal && result.swal.msg) {
-                    msgErro = result.swal.msg;
+
+                if (result.swal && result.swal.msg) {
+                  msgErro = result.swal.msg;
                 } else if (result.messages) {
-                    // Tenta pegar a primeira mensagem da lista de erros
-                    msgErro = Object.values(result.messages)[0];
-                    if (typeof msgErro === 'object') msgErro = Object.values(msgErro)[0];
+                  // Tenta pegar a primeira mensagem da lista de erros
+                  msgErro = Object.values(result.messages)[0];
+                  if (typeof msgErro === "object")
+                    msgErro = Object.values(msgErro)[0];
                 }
-                
+
                 // Usa o alerta simples para não quebrar se não tiver o SweetAlert
                 alert("Erro: " + msgErro);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("Erro técnico:", status, error);
-            alert("Não foi possível conectar à central. Verifique o sinal ou o link.");
-        },
-        complete: function() {
-            btn.val("Entrar").prop('disabled', false);
-        }
-    });
+              }
+            },
+            error: function (xhr, status, error) {
+              console.error("Erro técnico:", status, error);
+              alert(
+                "Não foi possível conectar à central. Verifique o sinal ou o link.",
+              );
+            },
+            complete: function () {
+              btn.val("Entrar").prop("disabled", false);
+            },
+          });
 
-    return false;
-});
+          return false;
+        });
 
         // 3. Lógica para Recuperação de Senha
         $("#form_new_password_email").on("submit", function (e) {
@@ -1804,7 +1842,40 @@
         const isOpen = mobileNav.classList.toggle("active");
         if (hamburgerBtn) hamburgerBtn.classList.toggle("active");
 
-        document.body.classList.toggle("menu-open", isOpen);
+        // Trava o scroll apenas enquanto o menu lateral está visualmente aberto
+        document.body.style.overflow = isOpen ? "hidden" : "";
+      }
+
+      function showPage(pageId) {
+        // Esconde todas as seções
+        document
+          .querySelectorAll(".page-section")
+          .forEach((s) => s.classList.add("hidden"));
+
+        const target = document.getElementById(pageId);
+        if (target) {
+          target.classList.remove("hidden");
+        }
+
+        // IMPORTANTE: Fecha o menu e LIBERA o scroll ao trocar de página
+        const mobileNav = document.getElementById("mobileNav");
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+
+        if (mobileNav) mobileNav.classList.remove("active");
+        if (hamburgerBtn) hamburgerBtn.classList.remove("active");
+
+        document.body.style.overflow = ""; // Libera o scroll do celular
+        document.body.classList.remove("menu-open");
+
+        if (pageId === "home") {
+          setTimeout(() => {
+            if (typeof AOS !== "undefined") AOS.refresh();
+            initSwiper();
+          }, 100);
+        }
+
+        // Rola para o topo para garantir que o usuário veja o início da nova página
+        window.scrollTo(0, 0);
       }
 
       function showPage(pageId) {
