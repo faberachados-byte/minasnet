@@ -268,7 +268,92 @@
   box-shadow: 0 0 20px var(--neon-green) !important;
 }
    
+/* Estilização da Central do Assinante */
+.login-box {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 450px;
+    margin: 40px auto;
+    backdrop-filter: blur(10px);
+}
 
+.login-box .title {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--neon-green);
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.login-box label {
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+    color: var(--text-silver);
+    font-weight: 700;
+}
+
+.login-box input[type="text"] {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 15px;
+    color: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+}
+
+.login-box input[type="text"]:focus {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+.submitbutton {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--neon-green);
+    color: var(--neon-green);
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.submitbutton:hover {
+    background: var(--neon-green);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-green);
+}
+
+/* Botão Secundário na Home */
+.btn-secondary {
+    border: 1px solid var(--text-silver);
+    color: var(--text-silver);
+    padding: 15px 40px;
+    border-radius: 5px;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 15px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+}
+
+.btn-secondary:hover {
+    border-color: #fff;
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+}
     .page-section { min-height: 100vh; padding-top: 120px; padding-bottom: 60px; position: relative; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .hidden { display: none !important; }
@@ -358,10 +443,13 @@
   <main class="container">
     <div id="home" class="page-section animate__animated animate__fadeIn">
       <section class="hero">
-        <h1 data-aos="zoom-out-up">A VELOCIDADE DA <span>LUZ</span> EM SUAS MÃOS</h1>
-        <p data-aos="fade-up" data-aos-delay="300">Internet rural e Fibra óptica de última geração no Sul de Minas.</p>
-        <button class="btn-whatsapp" style="margin-top: 30px; padding: 15px 40px;" onclick="document.getElementById('nossos-planos').scrollIntoView({behavior: 'smooth'})">Conhecer Planos</button>
-      </section>
+    <h1 data-aos="zoom-out-up">A VELOCIDADE DA <span>LUZ</span> EM SUAS MÃOS</h1>
+    <p data-aos="fade-up" data-aos-delay="300">Internet rural e Fibra óptica de última geração no Sul de Minas.</p>
+    
+    <button class="btn-whatsapp" style="margin-top: 30px; padding: 15px 40px;" onclick="document.getElementById('nossos-planos').scrollIntoView({behavior: 'smooth'})">Conhecer Planos</button>
+    
+    <button class="btn-secondary" onclick="showPage('suporte')">Central do Assinante</button>
+</section>
 
       <div class="swiper mySwiper" data-aos="fade-up">
         <div class="swiper-wrapper">
@@ -433,14 +521,35 @@
     </div>
 
     <div id="suporte" class="page-section hidden animate__animated animate__fadeIn">
-      <h1 style="text-align: center;">CENTRAL DE SUPORTE</h1>
-      <div class="stats-grid" style="margin-top: 50px;">
-        <div class="stat-card">
-          <h3>WhatsApp</h3><p>(35) 9 9953-1207</p>
-          <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="margin-top: 15px;">Falar com Técnico</a>
+    <h1 style="text-align: center;">SUPORTE E CENTRAL</h1>
+    
+    <div class="container" style="text-align: center;">
+        <div class="login-box">
+            <div class="title">Central do assinante</div>
+            
+            <form id="form_login" action="SUA_URL_DE_LOGIN_AQUI" method="POST">
+                <input type="hidden" name="_token" value="4A6tpkcq5acXM5TUvujEvge2SAzj6EO6iF6WtXJy">
+                
+                <div class="form-group">
+                    <label>CPF ou CNPJ</label>
+                    <input type="text" id="cpfcnpj" name="cpf_cnpj" placeholder="000.000.000-00" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="submitbutton" value="Entrar" id="continuar">
+                </div>
+            </form>
         </div>
-      </div>
+
+        <div class="stats-grid" style="margin-top: 30px;">
+            <div class="stat-card">
+                <h3>WhatsApp Suporte</h3>
+                <p>(35) 9 9953-1207</p>
+                <a href="https://wa.me/5535999531207" target="_blank" class="btn-whatsapp" style="margin-top: 15px;">Falar com Técnico</a>
+            </div>
+        </div>
     </div>
+</div>
 
     <div id="contato" class="page-section hidden animate__animated animate__fadeIn">
       <h1 style="text-align: center; margin-bottom: 40px;">CONTATO</h1>
@@ -527,7 +636,7 @@
   }
 }
 
-  function showPage(pageId) {
+function showPage(pageId) {
   // 1. Esconde as seções
   document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
   
@@ -537,24 +646,28 @@
     target.classList.remove('hidden');
   }
 
-  // 3. FECHA O MENU AUTOMATICAMENTE
+  // 3. FECHA O MENU AUTOMATICAMENTE (Mobile)
   const mobileNav = document.getElementById('mobileNav');
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const body = document.body;
 
-  mobileNav.classList.remove('active');
-  hamburgerBtn.classList.remove('active');
+  if (mobileNav) mobileNav.classList.remove('active');
+  if (hamburgerBtn) hamburgerBtn.classList.remove('active');
+  
   body.classList.remove('menu-open');
-  body.style.overflow = 'auto'; // Garante que o scroll volte
+  body.style.overflow = 'auto'; 
+  body.style.position = 'static'; // Libera a trava do iOS
 
-  // 4. Reset de animações e scroll ao topo
+  // 4. Reset de componentes específicos
   if (pageId === 'home') {
     setTimeout(() => { 
       AOS.refresh(); 
-      initSwiper(); 
+      if (typeof initSwiper === 'function') initSwiper(); 
     }, 100);
   }
-  window.scrollTo(0, 0);
+
+  // 5. Scroll ao topo suave
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
   // Inicialização
   document.addEventListener('DOMContentLoaded', () => {
