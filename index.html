@@ -244,6 +244,29 @@
   text-align: center;
   display: block;
 }
+/* Remove o quadrado esquisito e reseta o estilo no Mobile */
+.mobile-nav .btn-whatsapp {
+  background: transparent !important;
+  border: 1px solid var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  padding: 12px 30px !important;
+  border-radius: 5px !important;
+  font-size: 1.2rem !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  width: auto !important; /* Impede que ele ocupe a tela toda se não quiser */
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.2) !important;
+  -webkit-appearance: none; /* Remove estilo padrão do iPhone/Safari */
+  appearance: none;
+  display: inline-block !important; /* Mantém ele como botão e não linha cheia */
+}
+
+/* Garante que o efeito de brilho funcione ao tocar */
+.mobile-nav .btn-whatsapp:active {
+  background: var(--neon-green) !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px var(--neon-green) !important;
+}
    
 
     .page-section { min-height: 100vh; padding-top: 120px; padding-bottom: 60px; position: relative; }
