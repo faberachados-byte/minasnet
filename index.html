@@ -191,6 +191,14 @@
     }
     .mobile-nav a { font-family: 'Orbitron'; font-size: 1.8rem; color: #fff; text-decoration: none; cursor: pointer; }
 
+    /* Classe auxiliar para travar o scroll */
+    body.menu-open {
+      overflow: hidden !important;
+      height: 100vh;
+      width: 100vw;
+      position: fixed; /* Força o bloqueio no iOS */
+    }
+
     .page-section { min-height: 100vh; padding-top: 120px; padding-bottom: 60px; position: relative; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .hidden { display: none !important; }
@@ -426,10 +434,7 @@
       initSwiper();
     });
 
-    function toggleMenu() {
-      document.getElementById('mobileNav').classList.toggle('active');
-      document.getElementById('hamburgerBtn').classList.toggle('active');
-    }
+    
 
     function showPage(pageId) {
       document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
@@ -462,11 +467,11 @@
       mobileNav.classList.toggle('active');
       hamburgerBtn.classList.toggle('active');
 
-      // Impede o scroll do fundo quando o menu abre
+      // Aplica a classe que trava o scroll
       if (mobileNav.classList.contains('active')) {
-        body.style.overflow = 'hidden';
+        body.classList.add('menu-open');
       } else {
-        body.style.overflow = 'auto';
+        body.classList.remove('menu-open');
       }
     }
   </script>
