@@ -934,6 +934,57 @@
 .page-section.hidden {
     display: none !important;
 }
+/* Botão Flutuante WhatsApp */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(37, 211, 102, 0.4);
+    z-index: 9999; /* Garante que fique em cima de tudo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Efeito ao passar o mouse ou tocar */
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #128c7e;
+    color: #fff;
+    box-shadow: 0 0 25px rgba(37, 211, 102, 0.7);
+    text-decoration: none;
+}
+
+/* Ajuste para telas pequenas (opcional) */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+        font-size: 25px;
+    }
+}
+
+/* Animação suave para chamar atenção (opcional) */
+@keyframes pulse-whatsapp {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.whatsapp-float {
+    animation: pulse-whatsapp 2s infinite;
+}
     </style>
   </head>
   <body>
@@ -1943,5 +1994,8 @@
         );
       }
     </script>
+<a href="https://wa.me/5535999531207" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+</a>
   </body>
 </html>
