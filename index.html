@@ -457,19 +457,41 @@
           }
       /* Efeito de separação de seções para Desktop */
 @media (min-width: 901px) {
-  /* Aplica um fundo levemente mais claro e uma borda neon nas seções pares */
-  .page-section:nth-of-type(even) {
-    background: rgba(255, 255, 255, 0.02);
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
-    border-top: 1px solid rgba(0, 255, 136, 0.05);
-    border-bottom: 1px solid rgba(0, 255, 136, 0.05);
+  /* Força ambas as seções a ocuparem 100% da largura da janela (comprimento) */
+  #home .plans-section, 
+  #home .stats-grid {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%); /* Técnica precisa para centralizar em relação à tela, não ao pai */
+    left: 0;
+    right: 0;
+
+    /* Estética do fundo */
+    background: rgba(0, 0, 0, 0.45); 
+    box-shadow: inset 0 60px 100px rgba(0, 0, 0, 0.9), 
+                inset 0 -60px 100px rgba(0, 0, 0, 0.9);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    
+    /* Espaçamento interno (Altura da faixa) */
+    padding: 100px 0;
+    
+    /* Alinhamento dos itens internos */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
   }
 
-  /* Ajuste de padding para não ficar colado */
-  .page-section {
-    padding-top: 140px;
-    padding-bottom: 100px;
-    transition: background 0.3s ease;
+  /* Garante que o conteúdo dentro das faixas não estique junto com o fundo */
+  .plans-grid, 
+  #home .stats-grid > div {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 0 auto;
   }
 }
 
